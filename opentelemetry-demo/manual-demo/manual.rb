@@ -1,6 +1,7 @@
 require 'opentelemetry/sdk'
 require 'opentelemetry-exporter-otlp'
 
+# OpenTelemetry初始化配置
 OpenTelemetry::SDK.configure do |c|
   c.add_span_processor(
     OpenTelemetry::SDK::Trace::Export::BatchSpanProcessor.new(
@@ -10,15 +11,14 @@ OpenTelemetry::SDK.configure do |c|
     )
   )
   c.resource = OpenTelemetry::SDK::Resources::Resource.create({
-    OpenTelemetry::SemanticConventions::Resource::SERVICE_NAMESPACE => 'tracing',
-    OpenTelemetry::SemanticConventions::Resource::SERVICE_NAME => 'ruby_demo', # 通过OpenTelemetry上报的Ruby应用名
-    OpenTelemetry::SemanticConventions::Resource::SERVICE_VERSION => '0.0.1',
+    OpenTelemetry::SemanticConventions::Resource::SERVICE_NAMESPACE => '<your-service-namespace>',
+    OpenTelemetry::SemanticConventions::Resource::SERVICE_NAME => '<your-service-name>', # 通过OpenTelemetry上报的Ruby应用名
+    OpenTelemetry::SemanticConventions::Resource::SERVICE_VERSION => '<your-service-version>',
   })
 
-  # 不使用OpenTelemetry Resources API来设置应用名
-  # c.service_name = 'ruby_demo'
 end
 
+# 开始追踪
 tracer = OpenTelemetry.tracer_provider.tracer('instrumentation_library_name', '0.1.0')
 
 tracer.in_span('parent_span') do |parent_span|
