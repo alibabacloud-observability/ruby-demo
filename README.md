@@ -8,7 +8,9 @@ gem install opentelemetry-sdk
 gem install opentelemetry-exporter-otlp
 ```
 
-2. 运行：`ruby manual.rb`
+2. 修改manual.rb文件中的endpoint、SERVICE_NAMESPACE、SERVICE_NAME、SERVICE_VERSION
+
+3. 运行：`ruby manual.rb`
 
 
 ### 方法二：使用OpenTelemetry自动埋点
